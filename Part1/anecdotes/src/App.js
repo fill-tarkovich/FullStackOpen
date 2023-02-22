@@ -13,21 +13,37 @@ const App = () => {
   ];
 
   const [selected, setSelected] = useState(0);
+  const [votes, setVotes] = useState(
+    Array.apply(null, new Array(anecdotes.length)).map(
+      Number.prototype.valueOf,
+      0
+    )
+  );
 
-  function getRandomInt(min, max) {
+  const getRandomInt = (min, max) => {
     min = Math.ceil(min);
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min)) + min;
-  }
+  };
 
-  const clickHandle = () => {
+  const showNext = () => {
     setSelected(getRandomInt(0, anecdotes.length));
+  };
+
+  const addVote = () => {
+    const copy = [...votes];
+    copy[selected] += 1;
+    setVotes(copy);
   };
 
   return (
     <div>
+      <h2>Anecdote of the day</h2>
       <p>{anecdotes[selected]}</p>
-      <button onClick={clickHandle}>next</button>
+      <button onClick={showNext}>next</button>
+      <button onClick={addVote}>vote</button>
+      <h2>Anecdote with most votes</h2>
+      <p>{anecdotes[votes.indexOf(Math.max(...votes))]}</p>
     </div>
   );
 };
