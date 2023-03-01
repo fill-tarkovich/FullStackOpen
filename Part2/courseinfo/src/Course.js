@@ -6,13 +6,8 @@ const Part = ({ part }) => (
   </p>
 );
 
-const Content = ({ parts }) => (
-  <>
-    <Part part={parts[0]} />
-    <Part part={parts[1]} />
-    <Part part={parts[2]} />
-  </>
-);
+const Content = ({ parts }) =>
+  parts.map((part) => <Part key={part.id} part={part} />);
 
 const Total = ({ parts }) => {
   const sum = parts.reduce((sum, part) => {
