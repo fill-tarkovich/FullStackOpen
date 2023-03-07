@@ -12,14 +12,12 @@ const App = () => {
   const [isFiltered, setIsFiltered] = useState(false);
 
   useEffect(() => {
-    console.log("effect");
     axios.get("http://localhost:3001/persons").then((response) => {
       setPersons(response.data);
     });
   }, []);
 
   const addPerson = (event) => {
-    setIsFiltered(false);
     event.preventDefault();
     const newPerson = {
       name: newName,
@@ -27,7 +25,11 @@ const App = () => {
     };
     JSON.stringify(persons).includes(JSON.stringify(newPerson.name))
       ? alert(`${newName} is already added to phonebook`)
-      : setPersons(persons.concat(newPerson));
+      : axios
+          .post("http://localhost:3001/persons", newPerson)
+          .then((response) => {
+            setPersons(persons.concat(response.data));
+          });
     setNewName("");
     setNewNumber("");
   };
