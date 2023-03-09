@@ -50,6 +50,14 @@ const App = () => {
     setIsFiltered(true);
   };
 
+  const deleteHandler = (person) => {
+    const id = person.id;
+    if (window.confirm(`Delete ${person.name}?`)) {
+      personService.deleteEntry(id);
+      setPersons(persons.filter((person) => person.id !== id));
+    }
+  };
+
   return (
     <div>
       <h2>Phonebook</h2>
@@ -63,7 +71,10 @@ const App = () => {
         newNumber={newNumber}
       />
       <h2>Numbers</h2>
-      <Persons persons={isFiltered ? filtered : persons} />
+      <Persons
+        persons={isFiltered ? filtered : persons}
+        deleteHandler={deleteHandler}
+      />
     </div>
   );
 };

@@ -29,26 +29,6 @@
       "name": "Ivan Ivanov",
       "number": "1234567890",
       "id": 6
-    },
-    {
-      "name": "Piter Pann",
-      "number": "0987654321",
-      "id": 7
-    },
-    {
-      "name": "Jack Sparrow",
-      "number": "66666666666666",
-      "id": 8
-    },
-    {
-      "name": "Ivan Petrov",
-      "number": "88005553535",
-      "id": 9
-    },
-    {
-      "name": "Jon Willis",
-      "number": "9988776655443",
-      "id": 10
     }
   ]
 }
