@@ -23,11 +23,30 @@ const App = () => {
       name: newName,
       number: newNumber,
     };
-    JSON.stringify(persons).includes(JSON.stringify(newPerson.name))
-      ? alert(`${newName} is already added to phonebook`)
-      : personService.create(newPerson).then((returnedPerson) => {
-          setPersons(persons.concat(returnedPerson));
-        });
+    if (JSON.stringify(persons).includes(JSON.stringify(newPerson.name))) {
+      if (
+        window.confirm(
+          `${newName} is already added to phonebook, replace the old number with the new one?`
+        )
+      ) {
+        const matchingPerson = persons.find(
+          (person) => person.name === newName
+        );
+        personService
+          .update(matchingPerson.id, newPerson)
+          .then((returnedPerson) => {
+            setPersons(
+              persons.map((person) =>
+                person.id !== matchingPerson.id ? person : returnedPerson
+              )
+            );
+          });
+      }
+    } else {
+      personService.create(newPerson).then((returnedPerson) => {
+        setPersons(persons.concat(returnedPerson));
+      });
+    }
     setNewName("");
     setNewNumber("");
   };
