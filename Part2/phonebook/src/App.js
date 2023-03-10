@@ -10,6 +10,7 @@ const App = () => {
   const [newNumber, setNewNumber] = useState("");
   const [filtered, setFiltered] = useState([]);
   const [isFiltered, setIsFiltered] = useState(false);
+  const [infoMessage, setInfoMessage] = useState(null);
 
   useEffect(() => {
     personService.getAll().then((initialPersons) => {
@@ -45,6 +46,7 @@ const App = () => {
     } else {
       personService.create(newPerson).then((returnedPerson) => {
         setPersons(persons.concat(returnedPerson));
+        setInfoMessage(`${returnedPerson.name} added successfully`);
       });
     }
     setNewName("");
@@ -77,9 +79,21 @@ const App = () => {
     }
   };
 
+  const Notification = ({ message }) => {
+    if (message === null) {
+      return null;
+    } else {
+      setTimeout(() => {
+        setInfoMessage(null);
+      }, 6000);
+      return <div className="error">{message}</div>;
+    }
+  };
+
   return (
     <div>
       <h2>Phonebook</h2>
+      <Notification message={infoMessage} />
       <Filter applyFilter={applyFilter} />
       <h2>add a new</h2>
       <Form

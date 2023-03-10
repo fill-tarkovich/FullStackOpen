@@ -1,0 +1,9 @@
+.error {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 2px solid green;
+    background-color: lightgrey;
+    font-size: 20px;
+    color: green;
+    border-radius: 10px;
+}
