@@ -41,6 +41,9 @@ const App = () => {
                 person.id !== matchingPerson.id ? person : returnedPerson
               )
             );
+            setInfoMessage(
+              `Number of ${returnedPerson.name} updated successfully`
+            );
           });
       }
     } else {
