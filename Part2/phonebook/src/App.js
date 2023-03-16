@@ -11,6 +11,7 @@ const App = () => {
   const [filtered, setFiltered] = useState([]);
   const [isFiltered, setIsFiltered] = useState(false);
   const [infoMessage, setInfoMessage] = useState(null);
+  const [messageClass, setMessageClass] = useState(null);
 
   useEffect(() => {
     personService.getAll().then((initialPersons) => {
@@ -44,12 +45,14 @@ const App = () => {
             setInfoMessage(
               `Number of ${returnedPerson.name} updated successfully`
             );
+            setMessageClass("success");
           });
       }
     } else {
       personService.create(newPerson).then((returnedPerson) => {
         setPersons(persons.concat(returnedPerson));
         setInfoMessage(`${returnedPerson.name} added successfully`);
+        setMessageClass("success");
       });
     }
     setNewName("");
@@ -77,26 +80,32 @@ const App = () => {
   const deleteHandler = (person) => {
     const id = person.id;
     if (window.confirm(`Delete ${person.name}?`)) {
-      personService.deleteEntry(id);
+      personService.deleteEntry(id).catch((error) => {
+        setInfoMessage(
+          `Information of ${person.name} has already been removed from server`
+        );
+        setMessageClass("error");
+      });
       setPersons(persons.filter((person) => person.id !== id));
     }
   };
 
-  const Notification = ({ message }) => {
+  const Notification = ({ message, messageClass }) => {
     if (message === null) {
       return null;
     } else {
       setTimeout(() => {
         setInfoMessage(null);
+        setMessageClass(null);
       }, 6000);
-      return <div className="error">{message}</div>;
+      return <div className={messageClass}>{message}</div>;
     }
   };
 
   return (
     <div>
       <h2>Phonebook</h2>
-      <Notification message={infoMessage} />
+      <Notification message={infoMessage} messageClass={messageClass} />
       <Filter applyFilter={applyFilter} />
       <h2>add a new</h2>
       <Form
