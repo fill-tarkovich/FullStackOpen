@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import Weather from "./Weather";
 
-function App() {
+const App = () => {
   const [countries, setCountries] = useState([]);
   const [searchResults, setSearchResults] = useState([]);
   const [countryInfo, setCountryInfo] = useState(null);
@@ -71,12 +72,13 @@ function App() {
             src={`${countryInfo.flags.svg}`}
             alt={`${countryInfo.flags.alt}`}
           ></img>
+          <Weather countryInfo={countryInfo} />
         </div>
       ) : (
         countryRender()
       )}
     </div>
   );
-}
+};
 
 export default App;
