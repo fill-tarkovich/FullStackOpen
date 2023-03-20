@@ -13,10 +13,10 @@ function App() {
 
   const filterCountries = (event) => {
     setCountryInfo(null);
-    const inputValue = event.target.value;
-    if (inputValue) {
+    const searchInput = event.target.value;
+    if (searchInput) {
       const filtered = countries.filter((country) =>
-        country.name.common.toLowerCase().includes(inputValue.toLowerCase())
+        country.name.common.toLowerCase().includes(searchInput.toLowerCase())
       );
       setSearchResults(filtered);
       if (filtered.length === 1) {
@@ -32,7 +32,19 @@ function App() {
       return <p>Too many matches, please type more symbols</p>;
     } else if (searchResults.length < 11 && searchResults.length > 1) {
       return searchResults.map((country) => (
-        <p key={country.name.common}>{country.name.common}</p>
+        <div className="country_item" key={country.name.common}>
+          {country.name.common}
+          <button
+            className="show"
+            onClick={() => {
+              setCountryInfo(
+                countries.find((c) => c.name.common === country.name.common)
+              );
+            }}
+          >
+            show
+          </button>
+        </div>
       ));
     } else {
       return null;
@@ -42,7 +54,6 @@ function App() {
   return (
     <div>
       find countries <input type="text" onChange={filterCountries} />
-      {countryRender()}
       {countryInfo ? (
         <div>
           <h2>{countryInfo.name.common}</h2>
@@ -61,7 +72,9 @@ function App() {
             alt={`${countryInfo.flags.alt}`}
           ></img>
         </div>
-      ) : null}
+      ) : (
+        countryRender()
+      )}
     </div>
   );
 }
