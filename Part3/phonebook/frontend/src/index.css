@@ -1,0 +1,23 @@
+.success {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 2px solid green;
+    background-color: lightgrey;
+    font-size: 20px;
+    color: green;
+    border-radius: 10px;
+}
+
+.error {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 2px solid red;
+    background-color: #959595;
+    font-size: 20px;
+    color: red;
+    border-radius: 10px;
+}
+
+li, input {
+    margin-bottom: 10px;
+}
