@@ -49,11 +49,17 @@ const App = () => {
           });
       }
     } else {
-      personService.create(newPerson).then((returnedPerson) => {
-        setPersons(persons.concat(returnedPerson));
-        setInfoMessage(`${returnedPerson.name} added successfully`);
-        setMessageClass("success");
-      });
+      personService
+        .create(newPerson)
+        .then((returnedPerson) => {
+          setPersons(persons.concat(returnedPerson));
+          setInfoMessage(`${returnedPerson.name} added successfully`);
+          setMessageClass("success");
+        })
+        .catch((error) => {
+          setInfoMessage(`${error.response.data.error}`);
+          setMessageClass("error");
+        });
     }
     setNewName("");
     setNewNumber("");
