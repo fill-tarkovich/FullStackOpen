@@ -46,6 +46,10 @@ const App = () => {
               `Number of ${returnedPerson.name} updated successfully`
             );
             setMessageClass("success");
+          })
+          .catch((error) => {
+            setInfoMessage(`${error.response.data.error}`);
+            setMessageClass("error");
           });
       }
     } else {
