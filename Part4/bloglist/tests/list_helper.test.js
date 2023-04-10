@@ -130,7 +130,6 @@ describe('the author with most blogs', () => {
 
     test('when list has only one blog, equals that blog', () => {
         const result = listHelper.mostBlogs(listWithOneBlog)
-        console.log(result);
         expect(result).toEqual({
             author: 'Edsger W. Dijkstra',
             blogs: 1
@@ -139,7 +138,29 @@ describe('the author with most blogs', () => {
 
     test('in empty list, equals empty object', () => {
         const result = listHelper.mostBlogs(emptyList)
-        console.log(result);
         expect(result).toEqual({})
+    })
+})
+
+describe('the author with most likes', () => {
+    test('of a blogs list is correct', () => {
+        const result = listHelper.mostLikes(blogs)
+        expect(result).toEqual({
+            author: "Edsger W. Dijkstra",
+            likes: 17
+        })
+    })
+
+    test('when list has only one blog, equals that blog', () => {
+        const result = listHelper.mostLikes(listWithOneBlog)
+        expect(result).toEqual({
+            author: "Edsger W. Dijkstra",
+            likes: 5
+        })
+    })
+
+    test('in empty list, returns "undefined"', () => {
+        const result = listHelper.mostLikes(emptyList)
+        expect(result).toBe(undefined)
     })
 })
